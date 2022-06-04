@@ -10,42 +10,68 @@ const createIds = (arr = [], keyName) => {
 }
 
 let menu_categories = [
-  {
-    name: 'Beverages'
+  { // 0
+    name: 'Beverages',
+    value: 'beverages'
   },
-  {
-    name: 'Burgers'
+  { // 1
+    name: 'Burgers',
+    value: 'burgers'
   },
-  {
-    name: 'Chicken & Sandwiches'
+  { // 2
+    name: 'Chicken & Sandwiches',
+    value: 'chicken_and_sandwiches'
   },
-  {
-    name: 'Combo Meal'
+  { // 3
+    name: 'Combo Meal',
+    value: 'combo_meal'
   },
-  {
-    name: 'Dessert Shakes'
+  { // 4
+    name: 'Dessert Shakes',
+    value: 'dessert_shakes'
   },
-  {
-    name: 'Snacks & Sides'
+  { // 5
+    name: 'Snacks & Sides',
+    value: 'snacks_and_sides'
   },
 ]
 
 let menu_items = [
   {
     name: 'Double Meat Double Cheese',
-    featured: false
+    featured: false,
+    new: false,
+    menu_category: menu_categories[1],
+    ingredients: [],
+    add_ons: [],
+    sauces: []
   },
   {
     name: 'Cheese Burger',
-    featured: false
+    featured: false,
+    new: false,
+    menu_category: menu_categories[1],
+    ingredients: [],
+    add_ons: [],
+    sauces: []
   },
   {
     name: 'Ham Burger',
-    featured: false
+    featured: false,
+    new: false,
+    menu_category: menu_categories[1],
+    ingredients: [],
+    add_ons: [],
+    sauces: []
   },
   {
     name: 'Fries',
-    featured: false
+    featured: false,
+    new: false,
+    menu_category: menu_categories[5],
+    ingredients: [],
+    add_ons: [],
+    sauces: []
   },
 ]
 
@@ -65,5 +91,7 @@ menus = createIds(menus, 'menu_id');
 
 
 export const data = {
-  menu_categories
+  menu_categories,
+  menu_items,
+  menus
 }
