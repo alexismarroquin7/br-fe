@@ -4,6 +4,7 @@ import { data } from "../../data";
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Menu, MenuItem, Modal } from "@mui/material";
+import { useRouter } from "next/router";
 
 const { menu_categories, menu_items } = data;
 
@@ -15,6 +16,19 @@ const initialQuery = {
   category: ''
 }
 
+const stringifyQuery = (queryObj = {}) => {
+  let q = '';
+
+  Object
+  .keys(queryObj)
+  .forEach(key => {
+    if(!queryObj[key]) return;
+    q += `${q.length === 0 ? '?' : '&'}${key}=${queryObj[key]}`;
+  })
+  
+  return q;
+} 
+
 export default function MenuPage () {
   const [selected, setSelected] = useState(initialSelected);
   
@@ -24,9 +38,14 @@ export default function MenuPage () {
 
   const [query, setQuery] = useState(initialQuery);
 
+  const router = useRouter();
+
   useEffect(() => {
 
-  }, [])
+    const q = stringifyQuery(query);
+    router.push('/menu' + q);
+
+  }, [query]);
   
   return <Grid
     className="MenuPage"
@@ -65,20 +84,36 @@ export default function MenuPage () {
           onClose={() => setAnchorEl(null)}
           anchorEl={anchorEl}
         >
-          {[{id: 'All', name: 'All', value: ''},...menu_categories].map(mCat => {
-            return <MenuItem
-              key={mCat.menu_category_id}
-              onClick={() => {
-                setSelected({
-                  ...selected,
-                  menu_category: mCat.name
-                })
-                setAnchorEl(null);
-              }}
-            >
-              <h3>{mCat.name}</h3>
-            </MenuItem>
-          })}
+          {
+            [
+              {
+                menu_category_id: 'All',
+                name: 'All',
+                value: '' 
+              }, 
+              ...menu_categories 
+            ]
+            .map(mCat => {
+              return <MenuItem
+                key={mCat.menu_category_id}
+                onClick={() => {
+                  setSelected({
+                    ...selected,
+                    menu_category: mCat.name
+                  })
+                  
+                  setAnchorEl(null);
+
+                  setQuery({
+                    ...query,
+                    category: mCat.value
+                  })
+                }}
+              >
+                <h3>{mCat.name}</h3>
+              </MenuItem>
+            })
+          }
         </Menu>
 
       </Grid>
